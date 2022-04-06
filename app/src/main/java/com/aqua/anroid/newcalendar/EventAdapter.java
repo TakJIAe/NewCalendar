@@ -17,7 +17,7 @@ public class EventAdapter extends ArrayAdapter<Event>
 {
     public EventAdapter(@NonNull Context context, List<Event> events)
     {
-        super(context, 0, events);
+        super(context, 0, events); //super 호출 위해 resource 0 지정
 
     }
 
@@ -31,10 +31,15 @@ public class EventAdapter extends ArrayAdapter<Event>
         if (convertView == null)
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.event_cell, parent, false);
 
-        TextView eventCellTV = convertView.findViewById(R.id.eventCellTV);
+        TextView eventTitleTV = convertView.findViewById(R.id.eventTitleTV);
+        TextView eventDateTV = convertView.findViewById(R.id.eventDateTV);
 
-        String eventTitle = event.getName() + " " + CalendarUtils.formattedTime(event.getTime());
-        eventCellTV.setText(eventTitle);
+        String eventTitle = event.getName();
+        String eventDate = CalendarUtils.formattedTime(event.getTime());
+
+        eventTitleTV.setText(eventTitle);
+        eventDateTV.setText(eventDate);
+
         return convertView;
     }
 }

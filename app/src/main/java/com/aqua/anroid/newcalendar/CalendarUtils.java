@@ -7,9 +7,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
 
+/* 자주 사용하는 변수 정리*/
 public class CalendarUtils
 {
-    public static LocalDate selectedDate;
+    public static LocalDate selectedDate; //선택한 날짜
 
     public static String formattedDate(LocalDate date)
     {
@@ -22,6 +23,7 @@ public class CalendarUtils
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a", Locale.KOREAN);
         return time.format(formatter);
     }
+
     // 월 년도
     public static String monthYearFromDate(LocalDate date)
     {
@@ -47,7 +49,7 @@ public class CalendarUtils
                 daysInMonthArray.add(null);
             else
                 //선택한 날짜의 연도 가져오고, 쉼표가 선택된 날짜의 월을 가져와
-                // i에서 요일을 뺸 다음 현지 날짜의 배열 목록 복사
+                // i에서 요일을 뺸 다음 현재 날짜의 배열 목록 복사
                 daysInMonthArray.add(LocalDate.of(selectedDate.getYear(),selectedDate.getMonth(),i - dayOfWeek));
         }
         return  daysInMonthArray;

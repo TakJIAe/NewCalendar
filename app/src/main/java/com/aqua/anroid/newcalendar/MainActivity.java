@@ -10,8 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -27,9 +31,11 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initWidgets();
+        initWidgets(); //id 통해 목록 찾음
+        //loadFromDBToMemory();
         CalendarUtils.selectedDate = LocalDate.now();
         setMonthView();
+        setOnClickListener();
     }
 
     private void initWidgets()
@@ -38,6 +44,12 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         monthYearText = findViewById(R.id.monthYearTV);
         eventListView = findViewById(R.id.eventListView);
     }
+
+    /* db
+    private void loadFromDBToMemory()
+    {
+        SQLiteManager sqLiteManager = SQLiteManager.instance
+    }*/
 
     private void setMonthView()
     {
@@ -80,12 +92,26 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         setEventAdapter();
     }
 
-    //이벤트 Adapter 제공
+    // 이벤트 Adapter 제공
     private void setEventAdapter()
     {
         ArrayList<Event> dailyEvents = Event.eventsForDate(CalendarUtils.selectedDate);
         EventAdapter eventAdapter = new EventAdapter(getApplicationContext(), dailyEvents);
         eventListView.setAdapter(eventAdapter);
+    }
+
+    // event item 클릭 시 수정, 삭제
+    private void setOnClickListener() {
+        eventListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //int position = eventListView.getCheckedItemPosition();
+                Event selectedEvent = (Event) eventListView.getItemAtPosition(position);
+                Intent editEventIntent = new Intent(getApplicationContext(), EventEditActivity.class);
+                editEventIntent.putExtra(Event.Event_EDIT_EXTRA, selectedEvent.getId());
+                startActivity(editEventIntent);
+            }
+        });
     }
 
     public void newEventAction(View view)

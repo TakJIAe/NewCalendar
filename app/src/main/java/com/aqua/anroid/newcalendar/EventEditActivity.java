@@ -3,20 +3,23 @@ package com.aqua.anroid.newcalendar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import java.time.LocalTime;
+import java.util.Date;
 
 public class EventEditActivity extends AppCompatActivity
 {
     private EditText eventTitleET;
     private TextView eventDateTV, eventTimeTV;
-
-    private LocalTime time; // 현지 시간으로 시간 호출
+    private Button deleteEventBtn;
 
     private Event selectedEvent;
+    private LocalTime time; // 현지 시간으로 시간 호출
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -29,17 +32,16 @@ public class EventEditActivity extends AppCompatActivity
         //날짜 Text 선택한 날짜로 설정
         eventDateTV.setText("Date: " + CalendarUtils.formattedDate(CalendarUtils.selectedDate));
         eventTimeTV.setText("Time: " + CalendarUtils.formattedTime(time));
-        
+
         checkForEditEvent();
     }
-
-
 
     private void initWidgets()
     {
         eventTitleET = findViewById(R.id.eventTitleET);
         eventDateTV = findViewById(R.id.eventDateTV);
         eventTimeTV = findViewById(R.id.eventTimeTV);
+        deleteEventBtn = findViewById(R.id.deleteEventBtn);
     }
 
     private void checkForEditEvent()
@@ -54,6 +56,11 @@ public class EventEditActivity extends AppCompatActivity
         {
             eventTitleET.setText(selectedEvent.getName());
             //eventTitleET.setText(selectedEvent.getName());
+        }
+        else
+        {
+            //새로운 이벤트 생성 시 삭제 버튼 숨김
+            deleteEventBtn.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -83,5 +90,11 @@ public class EventEditActivity extends AppCompatActivity
 
     public void deleteEventAction(View view)
     {
+        // 새 날짜를 호출하여 삭제된 시간을 제공
+        selectedEvent.setDeleted(new Date());
+        //db 설정
+        //db 업데이트
+
+        startActivity(new Intent(this,MainActivity.class));
     }
 }

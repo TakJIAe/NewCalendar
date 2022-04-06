@@ -2,20 +2,15 @@ package com.aqua.anroid.newcalendar;
 
 import static com.aqua.anroid.newcalendar.CalendarUtils.daysInMonthArray;
 import static com.aqua.anroid.newcalendar.CalendarUtils.monthYearFromDate;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -60,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
+
         setEventAdapter();
     }
 
@@ -85,13 +81,6 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         }
     }
 
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
-        setEventAdapter();
-    }
-
     // 이벤트 Adapter 제공
     private void setEventAdapter()
     {
@@ -100,12 +89,12 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         eventListView.setAdapter(eventAdapter);
     }
 
-    // event item 클릭 시 수정, 삭제
+    // event item 클릭 시
     private void setOnClickListener() {
-        eventListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        eventListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //int position = eventListView.getCheckedItemPosition();
                 Event selectedEvent = (Event) eventListView.getItemAtPosition(position);
                 Intent editEventIntent = new Intent(getApplicationContext(), EventEditActivity.class);
                 editEventIntent.putExtra(Event.Event_EDIT_EXTRA, selectedEvent.getId());
@@ -117,5 +106,13 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     public void newEventAction(View view)
     {
         startActivity(new Intent(MainActivity.this,EventEditActivity.class));
+    }
+
+    // 재개될 때마다 다시 로드되도록 EventAdapter 호출
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        setEventAdapter();
     }
 }

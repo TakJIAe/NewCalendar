@@ -28,6 +28,9 @@ android {
 }
 
 dependencies {
+    //Datepicker
+    implementation 'com.github.applikeysolutions:cosmocalendar:1.0.4'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.5.0'

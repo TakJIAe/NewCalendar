@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".EventEditActivity">
+
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,6 +48,7 @@
         android:textSize="20sp"
         android:ems="10"
         android:inputType="text"/>
+
     <TextView
         android:id="@+id/eventDateTV"
         android:layout_width="wrap_content"
@@ -54,9 +56,47 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:text="Date"
-        android:textSize="20sp"
         android:textAlignment="center"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="20dp">
+
+        <Button
+            android:id="@+id/eventDatePickerBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:text="날짜 선택"
+            android:onClick="datepickerAction"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/startDateTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="시 작"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/endDateTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="종 료"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20sp"/>
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/eventTimeTV"

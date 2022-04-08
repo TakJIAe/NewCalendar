@@ -1,15 +1,31 @@
 package com.aqua.anroid.newcalendar;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.Pair;
+import androidx.recyclerview.widget.OrientationHelper;
+
+import com.applikeysolutions.cosmocalendar.view.CalendarView;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+
+import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
+
 
 public class EventEditActivity extends AppCompatActivity
 {
@@ -20,6 +36,8 @@ public class EventEditActivity extends AppCompatActivity
     private Event selectedEvent;
     private LocalTime time; // 현지 시간으로 시간 호출
 
+    TextView startDateTV,endDateTV;
+    Button eventDatePickerBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -33,7 +51,9 @@ public class EventEditActivity extends AppCompatActivity
         eventDateTV.setText("Date: " + CalendarUtils.formattedDate(CalendarUtils.selectedDate));
         eventTimeTV.setText("Time: " + CalendarUtils.formattedTime(time));
 
+        getdateData();
         checkForEditEvent();
+
     }
 
     private void initWidgets()
@@ -42,6 +62,7 @@ public class EventEditActivity extends AppCompatActivity
         eventDateTV = findViewById(R.id.eventDateTV);
         eventTimeTV = findViewById(R.id.eventTimeTV);
         deleteEventBtn = findViewById(R.id.deleteEventBtn);
+
     }
 
     private void checkForEditEvent()
@@ -97,4 +118,34 @@ public class EventEditActivity extends AppCompatActivity
 
         startActivity(new Intent(this,MainActivity.class));
     }
+
+    public void datepickerAction(View view)
+    {
+        startActivity(new Intent(this,DatePickerActivity.class));
+
+    }
+
+
+    private void getdateData()
+    {
+        Intent intent = getIntent();
+        ArrayList<String> Dates = intent.getStringArrayListExtra("Dates");
+
+        if(Dates != null && Dates.size()>0)
+        {
+            for(String s : Dates)
+            {
+                Log.i("Event Dates", s);
+            }
+
+        }
+        else
+        {
+            Log.i("Event Dates : ", "dates is null");
+        }
+
+    }
+
+
 }
+

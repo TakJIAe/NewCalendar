@@ -1,11 +1,12 @@
 package com.aqua.anroid.newcalendar;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Event
+public class Event implements Serializable
 {
     public static ArrayList<Event> eventsList = new ArrayList<>(); //이벤트 목록
     public static String Event_EDIT_EXTRA = "eventEdit";
@@ -15,6 +16,7 @@ public class Event
     private LocalDate date;
     private LocalTime time;
     private Date deleted;
+
 
     // 주어진 날짜에 대한 모든 이벤트 반환
     public static ArrayList<Event> eventsForDate(LocalDate date) {
@@ -49,7 +51,6 @@ public class Event
         this.date = date;
         this.time = time;
         deleted = null;
-
     }
 
     public static Event getEventForID(int passedEventID)

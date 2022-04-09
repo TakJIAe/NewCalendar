@@ -61,7 +61,10 @@ public class EventEditActivity extends AppCompatActivity
         eventTitleET = findViewById(R.id.eventTitleET);
         eventDateTV = findViewById(R.id.eventDateTV);
         eventTimeTV = findViewById(R.id.eventTimeTV);
+
         deleteEventBtn = findViewById(R.id.deleteEventBtn);
+        startDateTV = findViewById(R.id.startDateTV);
+        endDateTV= findViewById(R.id.endDateTV);
 
     }
 
@@ -137,7 +140,8 @@ public class EventEditActivity extends AppCompatActivity
             {
                 Log.i("Event Dates", s);
             }
-
+            startDateTV.setText(Dates.get(0));
+            endDateTV.setText(Dates.get(Dates.size()-1));
         }
         else
         {

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical"
+    tools:context=".DatePickerActivity">
+
+    <com.applikeysolutions.cosmocalendar.view.CalendarView
+        android:id="@+id/calendar_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        app:connectedDayIconPosition="top"
+        app:currentDayIconRes="@drawable/ic_dateselect"
+        app:currentDaySelectedIconRes="@drawable/ic_dateselect"
+        app:currentDayTextColor="@color/darkblue"
+        app:firstDayOfTheWeek="sunday"
+        app:orientation="horizontal"
+        app:selectedDayBackgroundColor="@color/blue"
+        app:selectedDayBackgroundEndColor="@color/blue"
+        app:selectedDayBackgroundStartColor="@color/blue"
+        app:selectedDayTextColor="#FFFFFF"
+        app:weekendDayTextColor="@color/red" />
+
+    <Button
+        android:id="@+id/datePickerOkBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/calendar_view"
+        android:background="@color/transparent"
+        android:text="확 인"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

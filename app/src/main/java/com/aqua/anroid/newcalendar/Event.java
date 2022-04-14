@@ -15,6 +15,8 @@ public class Event implements Serializable
     private String name;
     private LocalDate date;
     private LocalTime time;
+    private String startdate;
+    private String enddate;
     private Date deleted;
 
 
@@ -34,23 +36,29 @@ public class Event implements Serializable
         return events;
     }
 
-    public Event (int id, String name, LocalDate date, LocalTime time, Date deleted)
+    public Event(){}
+    public Event (int id, String name, LocalDate date, LocalTime time, String startdate, String enddate, Date deleted)
     {
         this.id = id;
         this.name = name;
         this.date = date;
         this.time = time;
+        this.startdate = startdate;
+        this.enddate = enddate;
         this.deleted= deleted;
 
     }
 
-    public Event (int id, String name, LocalDate date, LocalTime time)
+    public Event (int id, String name, LocalDate date,  String startdate, String enddate, LocalTime time)
     {
         this.id = id;
         this.name = name;
         this.date = date;
         this.time = time;
+        this.startdate = startdate;
+        this.enddate = enddate;
         deleted = null;
+
     }
 
     public static Event getEventForID(int passedEventID)
@@ -101,5 +109,22 @@ public class Event implements Serializable
 
     public void setDeleted(Date deleted) {
         this.deleted = deleted;
+    }
+
+    public String getStartdate() {
+        return startdate;
+    }
+
+    public String setStartdate(String startdate) {
+        this.startdate = startdate;
+        return startdate;
+    }
+
+    public String getEnddate() {
+        return enddate;
+    }
+
+    public void setEnddate(String enddate) {
+        this.enddate = enddate;
     }
 }

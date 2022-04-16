@@ -30,13 +30,12 @@ import java.util.TimeZone;
 public class EventEditActivity extends AppCompatActivity
 {
     private EditText eventTitleET;
-    private TextView eventDateTV, eventTimeTV;
+    private TextView eventDateTV, eventTimeTV,startDateTV,endDateTV;
     private Button deleteEventBtn;
 
     private Event selectedEvent;
     private LocalTime time; // 현지 시간으로 시간 호출
 
-    TextView startDateTV,endDateTV;
 
     Event event = new Event();
 

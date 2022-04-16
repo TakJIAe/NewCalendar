@@ -12,7 +12,7 @@ public class Event implements Serializable
     public static String Event_EDIT_EXTRA = "eventEdit";
 
     private int id;
-    private String name;
+    private static String title;
     private LocalDate date;
     private LocalTime time;
     private String startdate;
@@ -37,10 +37,10 @@ public class Event implements Serializable
     }
 
     public Event(){}
-    public Event (int id, String name, LocalDate date, LocalTime time, String startdate, String enddate, Date deleted)
+    public Event (int id, String title, LocalDate date, LocalTime time, String startdate, String enddate, Date deleted)
     {
         this.id = id;
-        this.name = name;
+        this.title = title;
         this.date = date;
         this.time = time;
         this.startdate = startdate;
@@ -49,10 +49,10 @@ public class Event implements Serializable
 
     }
 
-    public Event (int id, String name, LocalDate date,  String startdate, String enddate, LocalTime time)
+    public Event (int id, String title, LocalDate date,  String startdate, String enddate, LocalTime time)
     {
         this.id = id;
-        this.name = name;
+        this.title = title;
         this.date = date;
         this.time = time;
         this.startdate = startdate;
@@ -79,12 +79,13 @@ public class Event implements Serializable
     public void setId(int id) {
         this.id = id;
     }
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String setTitle(String title) {
+        this.title = title;
+        return title;
     }
 
     public LocalDate getDate() {

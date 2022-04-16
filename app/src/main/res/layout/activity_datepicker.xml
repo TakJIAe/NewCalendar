@@ -9,6 +9,16 @@
     android:orientation="vertical"
     tools:context=".DatePickerActivity">
 
+    <TextView
+        android:id="@+id/datepickTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/calendar_view"
+        android:gravity="center"
+        android:text="이벤트 title"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
     <com.applikeysolutions.cosmocalendar.view.CalendarView
         android:id="@+id/calendar_view"
         android:layout_width="match_parent"
@@ -23,7 +33,6 @@
         app:selectedDayBackgroundColor="@color/blue"
         app:selectedDayBackgroundEndColor="@color/blue"
         app:selectedDayBackgroundStartColor="@color/blue"
-        app:selectedDayTextColor="#FFFFFF"
         app:weekendDayTextColor="@color/red" />
 
     <Button

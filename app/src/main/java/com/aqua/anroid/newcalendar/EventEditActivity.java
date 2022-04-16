@@ -79,7 +79,7 @@ public class EventEditActivity extends AppCompatActivity
         // 이벤트 편집이 있음을 의미하는 선택된 이벤트 찾았을 때
         if(selectedEvent != null)
         {
-            eventTitleET.setText(selectedEvent.getName());
+            eventTitleET.setText(selectedEvent.getTitle());
             startDateTV.setText(selectedEvent.getStartdate());
             endDateTV.setText(selectedEvent.getEnddate());
 
@@ -109,7 +109,7 @@ public class EventEditActivity extends AppCompatActivity
         else // 편집 모드
         {
             //선택한 메모에 제목을 가져와 동일하게 지정
-            selectedEvent.setName(eventTitle);
+            selectedEvent.setTitle(eventTitle);
             selectedEvent.setStartdate(eventStartDate);
             selectedEvent.setStartdate(eventEndDate);
 
@@ -165,4 +165,3 @@ public class EventEditActivity extends AppCompatActivity
         }
     }
 }
-

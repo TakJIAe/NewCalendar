@@ -34,7 +34,7 @@ public class EventAdapter extends ArrayAdapter<Event>
         TextView eventTitleTV = convertView.findViewById(R.id.eventTitleTV);
         TextView eventDateTV = convertView.findViewById(R.id.eventDateTV);
 
-        String eventTitle = event.getName();
+        String eventTitle = event.getTitle();
         String eventDate = CalendarUtils.formattedTime(event.getTime());
 
         eventTitleTV.setText(eventTitle);

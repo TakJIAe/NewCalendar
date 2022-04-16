@@ -109,6 +109,8 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     }
 
     // 재개될 때마다 다시 로드되도록 EventAdapter 호출
+    //Activity가 사용자와 상호작용하기 바로 전에 호출됨
+
     @Override
     protected void onResume()
     {

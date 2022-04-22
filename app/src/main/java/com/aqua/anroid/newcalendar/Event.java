@@ -12,13 +12,12 @@ public class Event implements Serializable
     public static String Event_EDIT_EXTRA = "eventEdit";
 
     private int id;
-    private static String title;
+    private String title;
     private LocalDate date;
     private LocalTime time;
     private String startdate;
     private String enddate;
     private Date deleted;
-
 
     // 주어진 날짜에 대한 모든 이벤트 반환
     public static ArrayList<Event> eventsForDate(LocalDate date) {

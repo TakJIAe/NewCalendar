@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="10dp">
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:text="4월 2022"
+            android:text="2022년 4월 "
             android:textSize="20sp"
             android:textAlignment="center"
             android:textColor="@color/black"/>
@@ -152,20 +152,8 @@
             android:id="@+id/calendarRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             />
-
-        <!--<Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:text="일정 추가"
-            android:textColor="@color/blue"
-            android:background="@null"
-            android:onClick="newEventAction"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:textSize="20dp"/>-->
 
         <ListView
             android:id="@+id/eventListView"

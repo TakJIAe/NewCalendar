@@ -36,7 +36,7 @@ public class EventAdapter extends ArrayAdapter<Event>
 
         String eventTitle = event.getTitle();
         //String eventDate = CalendarUtils.formattedTime(event.getTime());
-        String eventDate = event.getStartdate() +" ~ "+event.getEnddate();
+        String eventDate = event.getStartdate() + " ~ " + event.getEnddate();
 
         eventTitleTV.setText(eventTitle);
         eventDateTV.setText(eventDate);

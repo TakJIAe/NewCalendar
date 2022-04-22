@@ -20,10 +20,8 @@
         </activity>
         <activity
             android:name=".EventEditActivity"
-            android:exported="true"/>
-        <activity
-            android:name=".DatePickerActivity"
             android:exported="true"
-            android:theme="@style/Transparent"/>
+            android:theme="@style/MaterialCustomRoot" />
+
     </application>
 </manifest>

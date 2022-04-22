@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     // 이벤트 Adapter 제공
     private void setEventAdapter()
     {
+        //ID 로 목록 찾고 리스트 호출
         ArrayList<Event> dailyEvents = Event.eventsForDate(CalendarUtils.selectedDate);
         EventAdapter eventAdapter = new EventAdapter(getApplicationContext(), dailyEvents);
         eventListView.setAdapter(eventAdapter);
@@ -96,9 +97,11 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Event selectedEvent = (Event) eventListView.getItemAtPosition(position);
-                Intent editEventIntent = new Intent(getApplicationContext(), EventEditActivity.class);
-                editEventIntent.putExtra(Event.Event_EDIT_EXTRA, selectedEvent.getId());
-                startActivity(editEventIntent);
+
+                Intent eventEditIntent = new Intent(getApplicationContext(), EventEditActivity.class);
+                eventEditIntent.putExtra(Event.Event_EDIT_EXTRA, selectedEvent.getId());
+                startActivity(eventEditIntent);
+
             }
         });
     }
@@ -108,9 +111,9 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         startActivity(new Intent(MainActivity.this,EventEditActivity.class));
     }
 
+
     // 재개될 때마다 다시 로드되도록 EventAdapter 호출
     //Activity가 사용자와 상호작용하기 바로 전에 호출됨
-
     @Override
     protected void onResume()
     {

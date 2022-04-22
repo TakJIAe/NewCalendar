@@ -9,7 +9,11 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 import androidx.recyclerview.widget.OrientationHelper;
@@ -26,18 +30,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-
-public class EventEditActivity extends AppCompatActivity
-{
+public class EventEditActivity extends AppCompatActivity {
     private EditText eventTitleET;
-    private TextView eventDateTV, eventTimeTV,startDateTV,endDateTV;
-    private Button deleteEventBtn;
+    private TextView eventDateTV, eventTimeTV, startDateTV, endDateTV;
+    private Button deleteEventBtn, eventDatePickerBtn;
 
     private Event selectedEvent;
     private LocalTime time; // 현지 시간으로 시간 호출
-
-
     Event event = new Event();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -51,7 +52,6 @@ public class EventEditActivity extends AppCompatActivity
         eventDateTV.setText("Date: " + CalendarUtils.formattedDate(CalendarUtils.selectedDate));
         eventTimeTV.setText("Time: " + CalendarUtils.formattedTime(time));
 
-        getdateData();
         checkForEditEvent();
 
     }
@@ -59,13 +59,13 @@ public class EventEditActivity extends AppCompatActivity
     private void initWidgets()
     {
         eventTitleET = findViewById(R.id.eventTitleET);
+        deleteEventBtn = findViewById(R.id.deleteEventBtn);
+        eventDatePickerBtn = findViewById(R.id.eventDatePickerBtn);
+
+        startDateTV = findViewById(R.id.startDateTV);
+        endDateTV = findViewById(R.id.endDateTV);
         eventDateTV = findViewById(R.id.eventDateTV);
         eventTimeTV = findViewById(R.id.eventTimeTV);
-
-        deleteEventBtn = findViewById(R.id.deleteEventBtn);
-        startDateTV = findViewById(R.id.startDateTV);
-        endDateTV= findViewById(R.id.endDateTV);
-
     }
 
     private void checkForEditEvent()
@@ -76,7 +76,7 @@ public class EventEditActivity extends AppCompatActivity
         selectedEvent = Event.getEventForID(passedEventID);
 
         // 이벤트 편집이 있음을 의미하는 선택된 이벤트 찾았을 때
-        if(selectedEvent != null)
+        if (selectedEvent != null)
         {
             eventTitleET.setText(selectedEvent.getTitle());
             startDateTV.setText(selectedEvent.getStartdate());
@@ -96,71 +96,75 @@ public class EventEditActivity extends AppCompatActivity
         String eventStartDate = startDateTV.getText().toString();
         String eventEndDate = endDateTV.getText().toString();
 
-        if(selectedEvent == null)
-        {
+        if (selectedEvent == null) {
             int id = Event.eventsList.size();
-
-            Event newEvent = new Event(id, eventTitle, CalendarUtils.selectedDate,  eventStartDate, eventEndDate, time);
+            Event newEvent = new Event(id, eventTitle, CalendarUtils.selectedDate, eventStartDate, eventEndDate, time);
             //Event newEvent = new Event (eventTitle,CalendarUtils.selectedDate, time);
 
             Event.eventsList.add(newEvent); // 새 이벤트를 이벤트 목록에 추가
         }
-        else // 편집 모드
+        // 편집 모드
+        else
         {
             //선택한 메모에 제목을 가져와 동일하게 지정
             selectedEvent.setTitle(eventTitle);
             selectedEvent.setStartdate(eventStartDate);
-            selectedEvent.setStartdate(eventEndDate);
+            selectedEvent.setEnddate(eventEndDate);
 
             // db 업데이트 하기
             // ...
         }
-        startActivity(new Intent(this,MainActivity.class));
+        startActivity(new Intent(this, MainActivity.class));
 
     }
 
     // 이벤트 삭제
-    public void deleteEventAction(View view)
-    {
+    public void deleteEventAction(View view) {
         // 새 날짜를 호출하여 삭제된 시간을 제공
         selectedEvent.setDeleted(new Date());
         //db 설정
         //db 업데이트
 
-        startActivity(new Intent(this,MainActivity.class));
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     //날짜 선택
-    public void datepickerAction(View view)
-    {
-        startActivity(new Intent(this,DatePickerActivity.class));
+    public void datepickerAction(View view) {
+        MaterialDatePicker.Builder materialDateBuilder = MaterialDatePicker.Builder.dateRangePicker();
 
-    }
+        MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
+        builder.setTitleText("날짜를 선택해주세요");
+        long today = MaterialDatePicker.todayInUtcMilliseconds();
+        materialDateBuilder.setSelection(today);
 
+        //미리 날짜 선택
+//        builder.setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(), MaterialDatePicker.todayInUtcMilliseconds()));
+        final MaterialDatePicker materialDatePicker = builder.build();
+        materialDatePicker.show(getSupportFragmentManager(), "Date_PICKER");
 
-    private void getdateData()
-    {
-        Intent intent = getIntent();
-        ArrayList<String> Dates = intent.getStringArrayListExtra("Dates");
+        materialDatePicker.addOnPositiveButtonClickListener(
+                new MaterialPickerOnPositiveButtonClickListener<Pair<Long, Long>>() {
+                    @Override
+                    public void onPositiveButtonClick(Pair<Long, Long> selection) {
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
+                        Date startdate = new Date();
+                        Date enddate = new Date();
 
-        if(Dates != null && Dates.size()>0)
-        {
-            for(String s : Dates)
-            {
-                Log.i("Event Dates", s);
-            }
+                        startdate.setTime(selection.first);
+                        enddate.setTime(selection.second);
 
-            //선택한 날짜 표시
-            startDateTV.setText(Dates.get(0));
-            endDateTV.setText(Dates.get(Dates.size()-1));
+                        String startdateString = simpleDateFormat.format(startdate);
+                        String enddateString = simpleDateFormat.format(enddate);
 
-            //선택한 날짜 객체 저장
-            event.setStartdate(Dates.get(0));
-            event.setEnddate(Dates.get(Dates.size()-1));
-        }
-        else
-        {
-            Log.i("Event Dates : ", "dates is null");
-        }
+                        startDateTV.setText(startdateString);
+                        endDateTV.setText(enddateString);
+
+                        //선택한 날짜 객체 저장
+                        event.setStartdate(startdateString);
+                        event.setEnddate(enddateString);
+                    }
+                });
+
     }
 }
+

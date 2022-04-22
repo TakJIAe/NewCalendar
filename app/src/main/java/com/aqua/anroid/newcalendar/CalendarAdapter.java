@@ -48,7 +48,7 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
             //그렇지 않으면 날짜로 설정
             holder.dayOfMonth.setText(String.valueOf(date.getDayOfMonth()));
             if(date.equals(CalendarUtils.selectedDate)) //날짜가 선택한 날짜와 동일한지
-                holder.parentView.setBackgroundColor(Color.LTGRAY); // 선택된 날짜 회색으로 표시
+                holder.parentView.setBackgroundColor(Color.LTGRAY); // 현재 날짜 회색으로 표시
         }
     }
 

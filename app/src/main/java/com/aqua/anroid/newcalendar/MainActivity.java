@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         setContentView(R.layout.activity_main);
         initWidgets(); //id 통해 목록 찾음
         //loadFromDBToMemory();
-        CalendarUtils.selectedDate = LocalDate.now();
-        setMonthView();
+        CalendarUtils.selectedDate = LocalDate.now(); //현재 날짜
+        setMonthView(); //화면 설정
         setOnClickListener();
     }
 
@@ -48,10 +48,15 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
 
     private void setMonthView()
     {
+        //년 월 텍스트뷰
         monthYearText.setText(monthYearFromDate(CalendarUtils.selectedDate));
+
+        //해당 월 날짜 가져오기
         ArrayList<LocalDate> daysInMonth = daysInMonthArray(CalendarUtils.selectedDate);
 
         CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this);
+
+        //레이아웃 설정, 열 7개
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
@@ -74,6 +79,8 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     @Override
     public void onItemClick(int position, LocalDate date)
     {
+        //현재 날짜로 변경하는 함수를 호출하여
+        //CalendarUtils.selectedDate 가 날짜와 같도록 설정
         if(date != null)
         {
             CalendarUtils.selectedDate = date;
@@ -111,7 +118,6 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         startActivity(new Intent(MainActivity.this,EventEditActivity.class));
     }
 
-
     // 재개될 때마다 다시 로드되도록 EventAdapter 호출
     //Activity가 사용자와 상호작용하기 바로 전에 호출됨
     @Override
@@ -120,4 +126,5 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         super.onResume();
         setEventAdapter();
     }
+
 }

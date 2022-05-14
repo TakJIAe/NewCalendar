@@ -16,19 +16,15 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
-import androidx.recyclerview.widget.OrientationHelper;
 
-import com.applikeysolutions.cosmocalendar.view.CalendarView;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
 
 public class EventEditActivity extends AppCompatActivity {
     private EditText eventTitleET;
@@ -81,7 +77,6 @@ public class EventEditActivity extends AppCompatActivity {
             eventTitleET.setText(selectedEvent.getTitle());
             startDateTV.setText(selectedEvent.getStartdate());
             endDateTV.setText(selectedEvent.getEnddate());
-
         }
         else
         {

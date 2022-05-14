@@ -128,3 +128,8 @@ public class Event implements Serializable
         this.enddate = enddate;
     }
 }
+
+//class MyEvent {
+//    LocalDate date;
+//    Event event;
+//}

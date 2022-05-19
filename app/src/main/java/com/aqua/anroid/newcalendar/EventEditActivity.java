@@ -1,19 +1,12 @@
 package com.aqua.anroid.newcalendar;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 
@@ -22,8 +15,7 @@ import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClic
 
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Calendar;
+
 import java.util.Date;
 
 public class EventEditActivity extends AppCompatActivity {
@@ -77,6 +69,10 @@ public class EventEditActivity extends AppCompatActivity {
             eventTitleET.setText(selectedEvent.getTitle());
             startDateTV.setText(selectedEvent.getStartdate());
             endDateTV.setText(selectedEvent.getEnddate());
+
+            Log.e("etitle:", selectedEvent.getTitle());
+            Log.e("estartdate:", selectedEvent.getStartdate());
+            Log.e("eenddate:", selectedEvent.getEnddate());
         }
         else
         {
@@ -90,6 +86,7 @@ public class EventEditActivity extends AppCompatActivity {
         String eventTitle = eventTitleET.getText().toString();
         String eventStartDate = startDateTV.getText().toString();
         String eventEndDate = endDateTV.getText().toString();
+
 
         if (selectedEvent == null) {
             int id = Event.eventsList.size();
@@ -141,7 +138,7 @@ public class EventEditActivity extends AppCompatActivity {
                 new MaterialPickerOnPositiveButtonClickListener<Pair<Long, Long>>() {
                     @Override
                     public void onPositiveButtonClick(Pair<Long, Long> selection) {
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                         Date startdate = new Date();
                         Date enddate = new Date();
 

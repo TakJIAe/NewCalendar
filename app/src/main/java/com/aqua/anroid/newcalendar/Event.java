@@ -1,5 +1,7 @@
 package com.aqua.anroid.newcalendar;
 
+import android.widget.Toast;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -26,12 +28,52 @@ public class Event implements Serializable
         for (Event event : eventsList)
         {
             // 삭제되지 않은 이벤트만 채우기
-            if(event.getDeleted()==null) {
+            if(event.getDeleted()==null)
+            {
                 //이벤트 날짜가 지난 날짜와 같으면 이벤트 목록에서 해당 이벤트 반환
-                if (event.getDate().equals(date))
+                String selectDate = date.toString();
+                String startDate = event.getStartdate();
+                String endDate = event.getEnddate();
+
+                // 현재 누른 날짜
+                // selectData = "2022-05-17"
+
+                // startData  = "2022-05-15"
+                // endData    = "2022-05-20"
+
+                // 2022-05-15 ~ 2022-05-20
+
+                String[] splitSelectData = selectDate.split("-");
+                int year_select = Integer.parseInt(splitSelectData[0]);
+                int month_select = Integer.parseInt(splitSelectData[1]);
+                int day_select = Integer.parseInt(splitSelectData[2]);
+
+                String[] splitStartData = startDate.split("-");
+                int year_Start = Integer.parseInt(splitStartData[0]);
+                int month_Start = Integer.parseInt(splitStartData[1]);
+                int day_Start = Integer.parseInt(splitStartData[2]);
+
+                String[] splitEndDate = endDate.split("-");
+                int year_End = Integer.parseInt(splitEndDate[0]);
+                int month_End = Integer.parseInt(splitEndDate[1]);
+                int day_End = Integer.parseInt(splitEndDate[2]);
+
+                boolean isYear =  (year_Start<=year_select) && (year_End >=year_select);
+                boolean isMonth =  (month_Start<=month_select) && (month_End >=month_select);
+                boolean isDay =  (day_Start<=day_select) && (day_End >=day_select);
+
+                if(isYear && isMonth && isDay)
+                {
                     events.add(event);
+                }
+
+                /*if (event.getDate().equals(date))
+                {
+                    events.add(event);
+                }*/
             }
         }
+
         return events;
     }
 
@@ -128,8 +170,3 @@ public class Event implements Serializable
         this.enddate = enddate;
     }
 }
-
-//class MyEvent {
-//    LocalDate date;
-//    Event event;
-//}

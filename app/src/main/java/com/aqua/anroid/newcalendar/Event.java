@@ -3,6 +3,8 @@ package com.aqua.anroid.newcalendar;
 import android.widget.Toast;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -14,11 +16,11 @@ public class Event implements Serializable
     public static String Event_EDIT_EXTRA = "eventEdit";
 
     private int id;
-    private String title;
-    private LocalDate date;
-    private LocalTime time;
-    private String startdate;
-    private String enddate;
+    public String title;
+/*    private LocalDate date;
+    private LocalTime time;*/
+    public String startdate;
+    public String enddate;
     private Date deleted;
 
     // 주어진 날짜에 대한 모든 이벤트 반환
@@ -31,42 +33,29 @@ public class Event implements Serializable
             if(event.getDeleted()==null)
             {
                 //이벤트 날짜가 지난 날짜와 같으면 이벤트 목록에서 해당 이벤트 반환
-                String selectDate = date.toString();
-                String startDate = event.getStartdate();
-                String endDate = event.getEnddate();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String selectDate1 = date.toString();   //현재누른날짜
+                String startDate1 = event.getStartdate();  //시작날짜
+                String endDate1 = event.getEnddate();  //종료날짜
+                Date selectDate = null;
 
-                // 현재 누른 날짜
-                // selectData = "2022-05-17"
 
-                // startData  = "2022-05-15"
-                // endData    = "2022-05-20"
+                try {
+                    selectDate = dateFormat.parse(selectDate1);
 
-                // 2022-05-15 ~ 2022-05-20
+                    Date startDate  = dateFormat.parse(startDate1);
+                    Date endDate    = dateFormat.parse(endDate1);
 
-                String[] splitSelectData = selectDate.split("-");
-                int year_select = Integer.parseInt(splitSelectData[0]);
-                int month_select = Integer.parseInt(splitSelectData[1]);
-                int day_select = Integer.parseInt(splitSelectData[2]);
+                    int result1 = selectDate.compareTo(startDate);       // curr > d1
+                    int result2 = selectDate.compareTo(endDate);
 
-                String[] splitStartData = startDate.split("-");
-                int year_Start = Integer.parseInt(splitStartData[0]);
-                int month_Start = Integer.parseInt(splitStartData[1]);
-                int day_Start = Integer.parseInt(splitStartData[2]);
-
-                String[] splitEndDate = endDate.split("-");
-                int year_End = Integer.parseInt(splitEndDate[0]);
-                int month_End = Integer.parseInt(splitEndDate[1]);
-                int day_End = Integer.parseInt(splitEndDate[2]);
-
-                boolean isYear =  (year_Start<=year_select) && (year_End >=year_select);
-                boolean isMonth =  (month_Start<=month_select) && (month_End >=month_select);
-                boolean isDay =  (day_Start<=day_select) && (day_End >=day_select);
-
-                if(isYear && isMonth && isDay)
-                {
-                    events.add(event);
+                    // 조건이 맞을때
+                    if((result1>=0)&&(result2<=0))
+                        events.add(event);
                 }
-
+                catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 /*if (event.getDate().equals(date))
                 {
                     events.add(event);
@@ -77,25 +66,26 @@ public class Event implements Serializable
         return events;
     }
 
+
     public Event(){}
-    public Event (int id, String title, LocalDate date, LocalTime time, String startdate, String enddate, Date deleted)
+    public Event (int id, String title, String startdate, String enddate, Date deleted)
     {
         this.id = id;
         this.title = title;
-        this.date = date;
-        this.time = time;
+/*        this.date = date;
+        this.time = time;*/
         this.startdate = startdate;
         this.enddate = enddate;
         this.deleted= deleted;
 
     }
 
-    public Event (int id, String title, LocalDate date,  String startdate, String enddate, LocalTime time)
+    public Event (int id, String title, String startdate, String enddate)
     {
         this.id = id;
         this.title = title;
-        this.date = date;
-        this.time = time;
+/*        this.date = date;
+        this.time = time;*/
         this.startdate = startdate;
         this.enddate = enddate;
         deleted = null;
@@ -129,7 +119,7 @@ public class Event implements Serializable
         return title;
     }
 
-    public LocalDate getDate() {
+ /*   public LocalDate getDate() {
         return date;
     }
 
@@ -143,7 +133,7 @@ public class Event implements Serializable
 
     public void setTime(LocalTime time) {
         this.time = time;
-    }
+    }*/
 
     public Date getDeleted() {
         return deleted;

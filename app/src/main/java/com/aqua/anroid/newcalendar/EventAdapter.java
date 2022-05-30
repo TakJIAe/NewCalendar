@@ -37,14 +37,17 @@ public class EventAdapter extends ArrayAdapter<Event>
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.event_cell, parent, false);
 
         TextView eventTitleTV = convertView.findViewById(R.id.eventTitleTV);
-        TextView eventDateTV = convertView.findViewById(R.id.eventDateTV);
+        TextView eventStartDateTV = convertView.findViewById(R.id.eventStartDateTV);
+        TextView eventEndDateTV = convertView.findViewById(R.id.eventEndDateTV);
 
         String eventTitle = event.getTitle();
-        String eventDate = event.getStartdate() + " ~ " + event.getEnddate();
-        //String eventDate = CalendarUtils.formattedTime(event.getTime());
+       /* String eventStartDateTV = event.getStartdate();
+        String eventEndDateTV = event.getEnddate();*/
+
 
         eventTitleTV.setText(eventTitle);
-        eventDateTV.setText(eventDate);
+    /*    eventStartDateTV.setText(eventStartDateTV);
+        eventEndDateTV.setText(eventStartDateTV);*/
 
         return convertView;
     }

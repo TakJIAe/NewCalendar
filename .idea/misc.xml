@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/TAKJIAE/AndroidStudioProjects/DelCalendar/app/src/main/res/drawable/calendar_main.xml" value="0.14583333333333334" />
+        <entry key="..\:/Users/TAKJIAE/AndroidStudioProjects/DelCalendar/app/src/main/res/layout/activity_event_edit.xml" value="0.2" />
+        <entry key="..\:/Users/TAKJIAE/AndroidStudioProjects/DelCalendar/app/src/main/res/layout/activity_main.xml" value="0.1296875" />
+        <entry key="..\:/Users/TAKJIAE/AndroidStudioProjects/DelCalendar/app/src/main/res/layout/calendar_cell.xml" value="0.1296875" />
+        <entry key="..\:/Users/TAKJIAE/AndroidStudioProjects/DelCalendar/app/src/main/res/layout/event_cell.xml" value="0.1296875" />
         <entry key="..\:/Users/TAKJIAE/AndroidStudioProjects/NewCalendar/app/src/main/res/drawable-v24/ic_dateselect.xml" value="0.1" />
         <entry key="..\:/Users/TAKJIAE/AndroidStudioProjects/NewCalendar/app/src/main/res/drawable/calendar_edge.xml" value="0.21388888888888888" />
         <entry key="..\:/Users/TAKJIAE/AndroidStudioProjects/NewCalendar/app/src/main/res/layout/activity_datepicker.xml" value="0.264" />
